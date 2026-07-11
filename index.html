@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Consulta Produtos Balança</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="topo">
+
+    <div class="logo">
+
+        <h1>SUPERMERCADO</h1>
+
+        <span>Consulta de Produtos da Balança</span>
+
+    </div>
+
+    <div class="relogio">
+
+        <div id="data"></div>
+
+        <div id="hora"></div>
+
+    </div>
+
+</div>
+
+
+<div class="oferta">
+
+    <div id="textoOferta">
+
+        🔥 OFERTA DO DIA
+
+    </div>
+
+</div>
+
+
+<div class="barraSuperior">
+
+    <input
+        type="file"
+        id="arquivo"
+        accept=".txt,.mgv,.dat,*">
+
+    <input
+        type="text"
+        id="pesquisa"
+        placeholder="Pesquisar produto...">
+
+</div>
+
+
+
+<div class="conteudo">
+
+    <button class="seta" id="anterior">
+
+        ❮
+
+    </button>
+
+    <div id="produtos" class="grid">
+
+    </div>
+
+    <button class="seta" id="proximo">
+
+        ❯
+
+    </button>
+
+</div>
+
+
+
+<div class="rodape">
+
+    Produtos carregados:
+    <span id="totalProdutos">0</span>
+
+</div>
+
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>
