@@ -209,36 +209,6 @@ document
 
 });
 
-
-//=====================================
-// PESQUISA
-//=====================================
-
-pesquisa.addEventListener("keyup",()=>{
-
-    const texto = pesquisa.value.toUpperCase();
-
-    produtosFiltrados = produtos.filter(prod=>{
-
-        return (
-
-            prod.descricao.toUpperCase().includes(texto)
-
-            ||
-
-            prod.ean.includes(texto)
-
-        );
-
-    });
-
-    pagina = 0;
-
-    mostrarPagina();
-
-});
-
-
 //=====================================
 // OFERTA
 //=====================================
