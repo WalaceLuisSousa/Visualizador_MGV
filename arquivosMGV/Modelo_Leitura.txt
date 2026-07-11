@@ -1,0 +1,21 @@
+ITENSMGV   
+Original > 01 0 000123 006199 003 CONT FILE BOV LM KG 000123 0000 000123 1 1 0000 000000000000 000000000000000000000000000000000000000000000000000000|01|000000000000000000 0059990||0||0000000000000000000000
+
+01> departamento ( vai de 01 a 99) fixar 01
+0> tipo de venda (0= venda por peso, 1=venda por unidade, etc)
+000123> EAN 6 dígitos (zero a esquerda)
+006199> preço 6 dígitos (2 casas decimais)
+003> dias de validade
+CONT FILE BOV LM KG> descrição 25 caracteres
+000123> informação extra caso o mesmo existir na tabela ZSDT017 (caso não, enviar 000000)
+0000> não usamos enviar 0000
+000123> informação nutricional caso existir na tabela ZSDT018 (caso não, enviar 000000)
+1> data embalagem (1 seleciona o campo, 0 não seleciona)
+1> data validade  (1 seleciona o campo, 0 não seleciona)
+777777777777> lote (enviar 12 zeros)
+000000000000000000000000000000000000000000000000000000 (Dados de EAN especial e de fornecedor, não é utilizado enviar 54 zeros)
+|01|> departamento associado enviar sempre 01
+000000000000000000> (campos não utilizados, enviar 18 zeros)
+005999> preço clube 6 dígitos (2 casas decimais) caso tiver clube, senão enviar 6 zeros
+||0||> SolicitaTaraOperacao [0] => Não solicita tara na balança, [1] => Solicita Tara na Balança (Enviar zero)
+0000000000000000000000> enviar 22 zeros (campos não utilizados)
