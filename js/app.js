@@ -132,9 +132,13 @@ inputArquivo.addEventListener("change",(e)=>{
 
 function criarCard(prod){
 
+    const ehOferta = prod.precoClube && prod.precoClube > 0;
+
     return `
 
-    <div class="card">
+    <div class="card ${ehOferta ? "oferta" : ""}">
+
+        ${ehOferta ? '<div class="seloOferta">🔥 OFERTA</div>' : ''}
 
         <div class="descricao">
 
@@ -142,29 +146,29 @@ function criarCard(prod){
 
         </div>
 
-        <div class="ean">
-
-            EAN ${prod.ean}
-
-        </div>
-
-        <div class="tipo">
-
-            Departamento ${prod.departamento}
-
-        </div>
-
-        <div class="tipo">
-
-            Validade ${prod.validade} dias
-
-        </div>
-
         <div class="preco">
 
-            R$ ${prod.preco.toFixed(2).replace(".",",")}
+            R$ ${prod.preco.toFixed(2).replace(".", ",")}
 
         </div>
+
+        <div class="unidade">
+
+            ${prod.tipoVenda === "0" ? "POR KG" : "POR UN"}
+
+        </div>
+
+        ${
+            ehOferta
+            ?
+            `<div class="precoClube">
+
+                Clube: R$ ${prod.precoClube.toFixed(2).replace(".", ",")}
+
+            </div>`
+            :
+            ""
+        }
 
     </div>
 
