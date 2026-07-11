@@ -24,7 +24,7 @@ TOPO
 .topo{
 
     width:100%;
-    height:90px;
+    height:100%;
 
     background:#1d2430;
 
@@ -34,7 +34,7 @@ TOPO
 
     align-items:center;
 
-    padding:0 40px;
+    padding:0 20px;
 
     border-bottom:3px solid #2f394b;
 
@@ -43,21 +43,45 @@ TOPO
 .logo{
 
     display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.logoImagem{
+
+    width:100px;
+
+    height:100px;
+
+    object-fit:contain;
+
+}
+
+.logoTexto{
+
+    display:flex;
+
     flex-direction:column;
 
 }
 
-.logo h1{
+.logoTexto h1{
 
     font-size:34px;
+
     font-weight:900;
-    color:white;
+
+    color:#FFF;
 
 }
 
-.logo span{
+.logoTexto span{
 
     color:#c0c7d1;
+
     font-size:15px;
 
 }
