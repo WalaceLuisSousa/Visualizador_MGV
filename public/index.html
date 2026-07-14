@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
 
@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Consulta Produtos Balança</title>
+    <title>Painel de Preços - O Mercadinho</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -19,82 +19,132 @@
 
 <body>
 
-<div class="topo">
+    <!-- =====================================
+    TOPO
+    ====================================== -->
 
-    <div class="logo">
+    <header class="topo">
 
-    <img
-        src="imagens/logo_omercadinho.jpeg"
-        alt="O Mercadinho"
-        class="logoImagem">
+        <div class="empresa">
 
-    <div class="logoTexto">
+            <img
+                src="imagens/logo_omercadinho.png"
+                class="logo"
+                alt="Logo">
 
-        <h1>O MERCADINHO</h1>
+            <div>
 
-        <span>Preços Açougue e Padaria</span>
+                <h1>O MERCADINHO</h1>
 
-    </div>
+                <span>Açougue • Padaria</span>
 
-</div>
+            </div>
 
-    <div class="relogio">
+        </div>
 
-        <div id="data"></div>
+        <div class="informacoes">
 
-        <div id="hora"></div>
+            <div id="data"></div>
 
-    </div>
+            <div id="hora"></div>
 
-</div>
+            <div class="total">
 
+                Produtos:
+                <span id="totalProdutos">0</span>
 
-<div class="oferta">
+            </div>
 
-    <div id="textoOferta">
+        </div>
 
-        🔥 OFERTA DO DIA
-
-    </div>
-
-</div>
-
-<div class="conteudo">
-
-    <button class="seta" id="anterior">
-
-        ❮
-
-    </button>
-
-    <div id="produtos" class="grid">
-
-    </div>
-
-    <button class="seta" id="proximo">
-
-        ❯
-
-    </button>
-
-</div>
+    </header>
 
 
+    <!-- =====================================
+    OFERTA
+    ====================================== -->
 
-<div class="rodape">
+    <section class="barraOferta">
 
-    Produtos carregados:
-    <span id="totalProdutos">0</span>
-    
-    <footer>
-        <p>&copy; 2023 - Todos os direitos reservados</p>
-        <p>Entre em contato pelo e-mail: contato@exemplo.com</p>
+        <div id="textoOferta">
+
+            🔥 OFERTAS DO DIA
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+    CABEÇALHO DA TABELA
+    ====================================== -->
+
+    <section class="cabecalhoTabela">
+
+        <div class="colProduto">
+
+            PRODUTO
+
+        </div>
+
+        <div class="colTipo">
+
+            TIPO
+
+        </div>
+
+        <div class="colPreco">
+
+            PREÇO
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+    LISTA
+    ====================================== -->
+
+    <main
+        id="produtos"
+        class="listaProdutos">
+
+    </main>
+
+
+    <!-- =====================================
+    RODAPÉ
+    ====================================== -->
+
+    <footer class="rodape">
+
+        <button
+            id="anterior"
+            class="botao">
+
+            ◀
+
+        </button>
+
+        <div
+            id="paginaAtual">
+
+            Página 1
+
+        </div>
+
+        <button
+            id="proximo"
+            class="botao">
+
+            ▶
+
+        </button>
+
     </footer>
 
-</div>
-
-
-<script src="app.js"></script>
+    <script src="app.js"></script>
 
 </body>
 
