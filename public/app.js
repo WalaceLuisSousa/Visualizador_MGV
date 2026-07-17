@@ -1,34 +1,59 @@
+//==================================================
+// ELEMENTOS
+//==================================================
+
 const grid = document.getElementById("produtos");
-const pesquisa = document.getElementById("pesquisa");
-const totalProdutos = document.getElementById("totalProdutos");
-const textoOferta = document.getElementById("textoOferta");
+
+const textoOferta =
+    document.getElementById("textoOferta");
+
+const totalProdutos =
+    document.getElementById("totalProdutos");
+
+const paginaAtual =
+    document.getElementById("paginaAtual");
+
+const ultimaAtualizacao =
+    document.getElementById("ultimaAtualizacao");
+
+//==================================================
+// VARIÁVEIS
+//==================================================
 
 let produtos = [];
+
 let produtosFiltrados = [];
 
 let pagina = 0;
-const produtosPorPagina = 12;
+
+const produtosPorPagina = 10;
 
 let timerOferta = null;
-let ultimoJSON = "";
 
-//=====================================
+let timerPagina = null;
+
+//==================================================
 // RELÓGIO
-//=====================================
+//==================================================
 
 function atualizarRelogio(){
 
     const agora = new Date();
 
     document.getElementById("hora").innerHTML =
+
         agora.toLocaleTimeString("pt-BR");
 
     document.getElementById("data").innerHTML =
+
         agora.toLocaleDateString("pt-BR",{
 
             weekday:"long",
+
             day:"2-digit",
+
             month:"2-digit",
+
             year:"numeric"
 
         });
@@ -40,47 +65,46 @@ setInterval(atualizarRelogio,1000);
 atualizarRelogio();
 
 
-//=====================================
-// CARREGA PRODUTOS DA API
-//=====================================
+//==================================================
+// BUSCA PRODUTOS DA API
+//==================================================
 
 async function carregarProdutos(){
 
     try{
 
-        const resposta = await fetch("/api/produtos?t=" + Date.now());
+        const resposta =
+            await fetch("/api/produtos");
 
         if(!resposta.ok){
 
-            throw new Error("Erro ao carregar produtos.");
+            throw new Error("Erro ao carregar produtos");
 
         }
 
-        const dados = await resposta.json();
-
-        const json = JSON.stringify(dados);
-
-        if(json === ultimoJSON){
-
-            return;
-
-        }
-
-        ultimoJSON = json;
+        const dados =
+            await resposta.json();
 
         produtos = dados;
 
+        produtos.sort((a,b)=>
+
+            a.descricao.localeCompare(b.descricao)
+
+        );
+
         produtosFiltrados = [...produtos];
 
-        totalProdutos.innerHTML = produtos.length;
+        totalProdutos.innerHTML =
+            produtos.length;
 
         pagina = 0;
 
         mostrarPagina();
 
-        iniciarOferta();
+        iniciarOfertas();
 
-        console.log("Produtos atualizados.");
+        atualizarRodape();
 
     }
 
@@ -93,65 +117,93 @@ async function carregarProdutos(){
 }
 
 
-//=====================================
-// CRIA CARD
-//=====================================
+//==================================================
+// RODAPÉ
+//==================================================
 
-function criarCard(prod){
+function atualizarRodape(){
 
-    const ehOferta = Number(prod.precoClube) > 0;
+    const agora = new Date();
+
+    ultimaAtualizacao.innerHTML =
+
+        "Atualizado às "
+
+        +
+
+        agora.toLocaleTimeString("pt-BR");
+
+}
+
+//==================================================
+// CRIAR LINHA
+//==================================================
+
+function criarLinha(prod){
+
+    const ehOferta = prod.precoClube > 0;
 
     return `
 
-        <div class="card ${ehOferta ? "oferta" : ""}">
+    <div class="linhaProduto ${ehOferta ? "oferta" : ""}">
 
-            ${ehOferta ?
+        <div>
 
-            `<div class="seloOferta">
-
-                🔥 OFERTA
-
-            </div>`
-
-            : ""}
-
-            <div class="descricao">
+            <div class="nomeProduto">
 
                 ${prod.descricao}
 
             </div>
 
-            <div class="preco">
+            ${
+                ehOferta
+                ?
 
-                R$ ${Number(prod.preco).toFixed(2).replace(".",",")}
+                `<div class="ofertaTexto">
 
-            </div>
+                    🔥 PREÇO CLUBE
 
-            <div class="unidade">
+                </div>`
 
-                ${prod.tipoVenda === "0" ? "POR KG" : "POR UN"}
+                :
 
-            </div>
+                ""
 
-            ${ehOferta ?
-
-            `<div class="precoClube">
-
-                Clube R$ ${Number(prod.precoClube).toFixed(2).replace(".",",")}
-
-            </div>`
-
-            : ""}
+            }
 
         </div>
+
+        <div class="tipoProduto">
+
+            ${prod.tipoVenda=="0" ? "KG" : "UN"}
+
+        </div>
+
+        <div class="precoProduto">
+
+            <span class="rs">
+
+                R$
+
+            </span>
+
+            <span class="valor">
+
+                ${prod.preco.toFixed(2).replace(".",",")}
+
+            </span>
+
+        </div>
+
+    </div>
 
     `;
 
 }
 
-//=====================================
-// PAGINAÇÃO
-//=====================================
+//==================================================
+// MOSTRAR PÁGINA
+//==================================================
 
 function mostrarPagina(){
 
@@ -159,70 +211,158 @@ function mostrarPagina(){
 
     const fim = inicio + produtosPorPagina;
 
-    const lista = produtosFiltrados.slice(inicio, fim);
+    const lista = produtosFiltrados.slice(inicio,fim);
 
-    grid.innerHTML = "";
+    grid.style.opacity = 0;
 
-    lista.forEach(prod => {
+    setTimeout(()=>{
 
-        grid.innerHTML += criarCard(prod);
+        grid.innerHTML = "";
 
-    });
+        lista.forEach(prod=>{
+
+            grid.innerHTML += criarLinha(prod);
+
+        });
+
+        grid.style.opacity = 1;
+
+        atualizarPagina();
+
+    },200);
 
 }
 
+//==================================================
+// INFORMAÇÃO DA PÁGINA
+//==================================================
 
-//=====================================
-// BOTÃO PRÓXIMO
-//=====================================
+function atualizarPagina(){
+
+    const totalPaginas = Math.ceil(
+
+        produtosFiltrados.length /
+
+        produtosPorPagina
+
+    );
+
+    paginaAtual.innerHTML =
+
+        `Página ${pagina+1} de ${totalPaginas}`;
+
+}
+
+//==================================================
+// BOTÕES
+//==================================================
 
 document
 .getElementById("proximo")
 .addEventListener("click",()=>{
 
-    if((pagina + 1) * produtosPorPagina < produtosFiltrados.length){
+    const totalPaginas = Math.ceil(
+
+        produtosFiltrados.length /
+
+        produtosPorPagina
+
+    );
+
+    if(pagina < totalPaginas-1){
 
         pagina++;
 
-        mostrarPagina();
+    }
+
+    else{
+
+        pagina = 0;
 
     }
 
+    mostrarPagina();
+
 });
-
-
-//=====================================
-// BOTÃO ANTERIOR
-//=====================================
 
 document
 .getElementById("anterior")
 .addEventListener("click",()=>{
 
-    if(pagina > 0){
+    const totalPaginas = Math.ceil(
+
+        produtosFiltrados.length /
+
+        produtosPorPagina
+
+    );
+
+    if(pagina>0){
 
         pagina--;
 
-        mostrarPagina();
+    }
+
+    else{
+
+        pagina = totalPaginas-1;
 
     }
 
+    mostrarPagina();
+
 });
 
-//=====================================
-// OFERTA
-//=====================================
+//==================================================
+// PESQUISA
+//==================================================
 
-function iniciarOferta(){
+function pesquisar(texto){
 
-    if(produtos.length === 0)
-        return;
+    texto = texto.toUpperCase().trim();
+
+    if(texto===""){
+
+        produtosFiltrados=[...produtos];
+
+    }
+
+    else{
+
+        produtosFiltrados = produtos.filter(prod=>
+
+            prod.descricao.toUpperCase().includes(texto)
+
+            ||
+
+            prod.ean.includes(texto)
+
+        );
+
+    }
+
+    pagina=0;
+
+    mostrarPagina();
+
+}
+
+
+//==================================================
+// OFERTAS
+//==================================================
+
+function iniciarOfertas(){
 
     if(timerOferta){
 
         clearInterval(timerOferta);
 
     }
+
+    const ofertas = produtos.filter(p=>p.precoClube>0);
+
+    let lista = ofertas.length>0 ? ofertas : produtos;
 
     let indice = 0;
 
@@ -232,21 +372,29 @@ function iniciarOferta(){
 
     function trocarOferta(){
 
-        if(indice >= produtos.length){
+        if(lista.length===0)
+            return;
 
-            indice = 0;
+        if(indice>=lista.length)
+            indice=0;
+
+        const p = lista[indice];
+
+        if(p.precoClube>0){
+
+            textoOferta.innerHTML =
+
+                `🔥 OFERTA • ${p.descricao} • Clube R$ ${p.precoClube.toFixed(2).replace(".",",")}`;
 
         }
 
-        const p = produtos[indice];
+        else{
 
-        const preco = Number(p.preco)
-            .toFixed(2)
-            .replace(".",",");
+            textoOferta.innerHTML =
 
-        textoOferta.innerHTML =
+                `${p.descricao} • R$ ${p.preco.toFixed(2).replace(".",",")}`;
 
-            `🔥 OFERTA • ${p.descricao} • R$ ${preco}`;
+        }
 
         indice++;
 
@@ -255,12 +403,252 @@ function iniciarOferta(){
 }
 
 
-//=====================================
+//==================================================
+// PAGINAÇÃO AUTOMÁTICA
+//==================================================
+
+function iniciarPaginacaoAutomatica(){
+
+    if(timerPagina){
+
+        clearInterval(timerPagina);
+
+    }
+
+    timerPagina = setInterval(()=>{
+
+        const totalPaginas = Math.ceil(
+
+            produtosFiltrados.length /
+
+            produtosPorPagina
+
+        );
+
+        pagina++;
+
+        if(pagina>=totalPaginas){
+
+            pagina=0;
+
+        }
+
+        mostrarPagina();
+
+    },10000);
+
+}
+
+
+//==================================================
+// REINICIAR TUDO
+//==================================================
+
+function reiniciarSistema(){
+
+    iniciarOfertas();
+
+    iniciarPaginacaoAutomatica();
+
+}
+
+
+//==================================================
+// ORDENAÇÃO
+//==================================================
+
+function ordenarProdutos(){
+
+    produtos.sort((a,b)=>{
+
+        return a.descricao.localeCompare(
+
+            b.descricao,
+
+            "pt-BR"
+
+        );
+
+    });
+
+    produtosFiltrados=[...produtos];
+
+}
+
+//==================================================
+// COMPARAÇÃO DE PREÇOS
+//==================================================
+
+let cacheProdutos = {};
+
+function compararProdutos(novosProdutos){
+
+    novosProdutos.forEach(prod=>{
+
+        const antigo = cacheProdutos[prod.ean];
+
+        if(!antigo){
+
+            cacheProdutos[prod.ean] = {
+
+                preco: prod.preco
+
+            };
+
+            return;
+
+        }
+
+        if(antigo.preco != prod.preco){
+
+            console.log(
+
+                "Preço alterado:",
+
+                prod.descricao,
+
+                antigo.preco,
+
+                "->",
+
+                prod.preco
+
+            );
+
+            antigo.preco = prod.preco;
+
+        }
+
+    });
+
+}
+
+//==================================================
 // ATUALIZAÇÃO AUTOMÁTICA
-//=====================================
+//==================================================
 
-// Carrega ao abrir
-carregarProdutos();
+async function atualizarProdutos(){
 
-// Atualiza a cada minuto
-setInterval(carregarProdutos,60000);
+    try{
+
+        const resposta = await fetch(
+
+            "/api/produtos?ts=" + Date.now()
+
+        );
+
+        if(!resposta.ok){
+
+            return;
+
+        }
+
+        const dados = await resposta.json();
+
+        compararProdutos(dados);
+
+        produtos = dados;
+
+        ordenarProdutos();
+
+        mostrarPagina();
+
+        iniciarOfertas();
+
+        atualizarRodape();
+
+    }
+
+    catch(e){
+
+        console.error(e);
+
+    }
+
+}
+
+//==================================================
+// AUTO REFRESH
+//==================================================
+
+setInterval(()=>{
+
+    atualizarProdutos();
+
+},60000);
+
+
+//==================================================
+// INICIALIZAÇÃO
+//==================================================
+
+window.addEventListener("load",async()=>{
+
+    await carregarProdutos();
+
+    iniciarPaginacaoAutomatica();
+
+});
+
+
+//==================================================
+// VISIBILIDADE DA ABA
+//==================================================
+
+document.addEventListener(
+
+    "visibilitychange",
+
+    ()=>{
+
+        if(document.hidden){
+
+            return;
+
+        }
+
+        atualizarProdutos();
+
+    }
+
+);
+
+
+//==================================================
+// TECLADO
+//==================================================
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="ArrowRight"){
+
+        document
+
+            .getElementById("proximo")
+
+            .click();
+
+    }
+
+    if(e.key==="ArrowLeft"){
+
+        document
+
+            .getElementById("anterior")
+
+            .click();
+
+    }
+
+});
+
+
+//==================================================
+// DEBUG
+//==================================================
+
+console.log(
+
+    "Visualizador MGV iniciado."
+
+);

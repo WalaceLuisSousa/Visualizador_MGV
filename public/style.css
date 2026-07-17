@@ -1,6 +1,6 @@
-/*=========================================
+/*==================================================
 RESET
-=========================================*/
+==================================================*/
 
 *{
     margin:0;
@@ -9,24 +9,32 @@ RESET
     font-family:'Roboto',sans-serif;
 }
 
+html,
 body{
-
-    background:#10151d;
-    color:#FFF;
-    overflow-x:hidden;
-
-}
-
-/*=========================================
-TOPO
-=========================================*/
-
-.topo{
 
     width:100%;
     height:100%;
 
-    background:#1d2430;
+}
+
+body{
+
+    background:#111822;
+    color:#FFF;
+    overflow:hidden;
+
+}
+
+/*==================================================
+TOPO
+==================================================*/
+
+.topo{
+
+    width:100%;
+    height:100px;
+
+    background:#1b2432;
 
     display:flex;
 
@@ -34,9 +42,9 @@ TOPO
 
     align-items:center;
 
-    padding:0 20px;
+    padding:0 35px;
 
-    border-bottom:3px solid #2f394b;
+    border-bottom:4px solid #303d52;
 
 }
 
@@ -52,9 +60,9 @@ TOPO
 
 .logoImagem{
 
-    width:100px;
+    width:85px;
 
-    height:100px;
+    height:85px;
 
     object-fit:contain;
 
@@ -70,55 +78,65 @@ TOPO
 
 .logoTexto h1{
 
-    font-size:34px;
+    font-size:38px;
 
     font-weight:900;
 
-    color:#FFF;
+    color:white;
+
+    letter-spacing:2px;
 
 }
 
 .logoTexto span{
 
-    color:#c0c7d1;
+    color:#C5CCD5;
 
-    font-size:15px;
+    font-size:18px;
+
+    margin-top:5px;
 
 }
 
 .relogio{
 
     display:flex;
+
     flex-direction:column;
+
     align-items:flex-end;
 
 }
 
 #data{
 
-    color:#DDD;
-    font-size:16px;
+    font-size:18px;
+
+    color:#D8D8D8;
 
 }
 
 #hora{
 
-    font-size:42px;
-    color:#53ff84;
+    font-size:48px;
+
     font-weight:bold;
+
+    color:#52ff8d;
 
 }
 
-/*=========================================
-BARRA DE OFERTA
-=========================================*/
+/*==================================================
+BARRA DE OFERTAS
+==================================================*/
 
-.oferta{
+.barraOferta{
 
     width:100%;
-    height:50px;
 
-    background:#ff8300;
+    height:55px;
+
+    background:#ff8a00;
 
     display:flex;
 
@@ -130,185 +148,235 @@ BARRA DE OFERTA
 
 #textoOferta{
 
-    white-space:nowrap;
+    width:100%;
 
-    font-size:26px;
+    color:white;
+
+    font-size:30px;
 
     font-weight:bold;
 
-    color:white;
-
-    animation:marquee 20s linear infinite;
+    letter-spacing:1px;
 
 }
 
-@keyframes marquee{
+/*==================================================
+CABEÇALHO
+==================================================*/
 
-    from{
-
-        transform:translateX(100%);
-
-    }
-
-    to{
-
-        transform:translateX(-100%);
-
-    }
-
-}
-
-/*=========================================
-BARRA SUPERIOR
-=========================================*/
-
-.barraSuperior{
+.cabecalho{
 
     width:100%;
 
-    display:flex;
+    height:65px;
 
-    justify-content:center;
-
-    align-items:center;
-
-    gap:20px;
-
-    padding:20px;
-
-}
-
-#arquivo{
-
-    background:#273144;
-
-    color:white;
-
-    border:none;
-
-    padding:12px;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-}
-
-#pesquisa{
-
-    width:350px;
-
-    height:45px;
-
-    border:none;
-
-    border-radius:8px;
-
-    padding-left:15px;
-
-    font-size:18px;
-
-    outline:none;
-
-}
-
-/*=========================================
-CONTEÚDO
-=========================================*/
-
-.conteudo{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:20px;
-
-}
-
-.grid{
-
-    width:95%;
+    background:#263246;
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    grid-template-columns:1fr 140px 220px;
 
-    gap:25px;
+    align-items:center;
+
+    padding:0 35px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    border-bottom:2px solid #39485d;
 
 }
 
-/*=========================================
-CARDS
-=========================================*/
+.colProduto{
 
-.card{
+    text-align:left;
 
-    position:relative;
+}
 
-    background:#263248;
+.colTipo{
 
-    border-radius:12px;
+    text-align:center;
 
-    min-height:220px;
+}
 
-    padding:20px;
+.colPreco{
+
+    text-align:right;
+
+}
+
+/*==================================================
+ÁREA PRINCIPAL
+==================================================*/
+
+main{
+
+    width:100%;
+
+    height:calc(100vh - 220px);
+
+    overflow:hidden;
+
+}
+
+.listaProdutos{
+
+    width:100%;
 
     display:flex;
 
     flex-direction:column;
 
-    justify-content:space-between;
+}
+
+/*==================================================
+LINHAS
+==================================================*/
+
+.linhaProduto{
+
+    display:grid;
+
+    grid-template-columns:1fr 140px 220px;
+
+    align-items:center;
+
+    height:72px;
+
+    padding:0 35px;
+
+    border-bottom:1px solid #283445;
 
     transition:.25s;
 
-    border:3px solid transparent;
+}
 
-    box-shadow:0 6px 12px rgba(0,0,0,.25);
+.linhaProduto:nth-child(odd){
+
+    background:#182230;
 
 }
 
-.card:hover{
+.linhaProduto:nth-child(even){
 
-    transform:translateY(-5px);
-
-    border-color:#46ff94;
-
-    box-shadow:0 10px 20px rgba(0,0,0,.4);
+    background:#1f2a39;
 
 }
 
-/*==============================
-CARD OFERTA
-===============================*/
+.linhaProduto:hover{
 
-.card.oferta{
-
-    background:#392b18;
-
-    border-color:#ff9800;
+    background:#2b394d;
 
 }
 
-.seloOferta{
+/*==================================================
+NOME DO PRODUTO
+==================================================*/
 
-    position:absolute;
+.nomeProduto{
 
-    top:12px;
+    font-size:34px;
 
-    right:12px;
+    font-weight:700;
 
-    background:#ff9800;
+    color:#FFFFFF;
 
-    color:#FFF;
+    text-transform:uppercase;
 
-    padding:6px 14px;
+    white-space:nowrap;
 
-    border-radius:6px;
+    overflow:hidden;
 
-    font-size:14px;
+    text-overflow:ellipsis;
+
+}
+
+/*==================================================
+TIPO
+==================================================*/
+
+.tipoProduto{
+
+    text-align:center;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    color:#D6D6D6;
+
+}
+
+/*==================================================
+PREÇO
+==================================================*/
+
+.precoProduto{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:flex-start;
+
+    color:#58FF8A;
+
+    font-weight:900;
+
+    text-shadow:0 0 10px rgba(88,255,138,.25);
+
+}
+
+.precoProduto .rs{
+
+    font-size:28px;
+
+    margin-right:8px;
+
+    margin-top:8px;
+
+}
+
+.precoProduto .valor{
+
+    font-size:62px;
+
+    line-height:1;
+
+}
+
+/*==================================================
+PRODUTO EM OFERTA
+==================================================*/
+
+.linhaProduto.oferta{
+
+    background:#3A2A14;
+
+    border-left:8px solid #FF9800;
+
+}
+
+.linhaProduto.oferta .nomeProduto{
+
+    color:#FFD54F;
+
+}
+
+.linhaProduto.oferta .valor{
+
+    color:#FFE100;
+
+}
+
+.ofertaTexto{
+
+    margin-top:4px;
+
+    font-size:16px;
+
+    color:#FF9800;
 
     font-weight:bold;
 
@@ -316,13 +384,19 @@ CARD OFERTA
 
 }
 
-/*==============================
-DESCRIÇÃO
-===============================*/
+/*==================================================
+RODAPÉ
+==================================================*/
 
-.descricao{
+footer{
 
-    flex:1;
+    width:100%;
+
+    height:70px;
+
+    background:#1B2432;
+
+    border-top:3px solid #303D52;
 
     display:flex;
 
@@ -330,154 +404,87 @@ DESCRIÇÃO
 
     justify-content:center;
 
-    text-align:center;
-
-    font-size:25px;
-
-    font-weight:bold;
-
-    line-height:1.3;
-
-    color:#FFF;
-
-    text-transform:uppercase;
+    gap:30px;
 
 }
 
-/*==============================
-PREÇO
-===============================*/
+.botao{
 
-.preco{
+    width:55px;
 
-    text-align:center;
-
-    font-size:52px;
-
-    font-weight:bold;
-
-    color:#61ff8b;
-
-    margin-top:15px;
-
-    text-shadow:0 0 8px rgba(97,255,139,.2);
-
-}
-
-.preco small{
-
-    font-size:18px;
-
-}
-
-/*==============================
-UNIDADE
-===============================*/
-
-.unidade{
-
-    margin-top:10px;
-
-    text-align:center;
-
-    color:#DDD;
-
-    font-size:18px;
-
-    letter-spacing:1px;
-
-}
-
-/*==============================
-PREÇO CLUBE
-===============================*/
-
-.precoClube{
-
-    margin-top:15px;
-
-    text-align:center;
-
-    color:#ffd54f;
-
-    font-size:24px;
-
-    font-weight:bold;
-
-}
-
-/*==============================
-OCULTAR CAMPOS
-===============================*/
-
-.ean,
-.tipo{
-
-    display:none;
-
-}
-
-/*=========================================
-BOTÕES
-=========================================*/
-
-.seta{
-
-    width:60px;
-
-    height:60px;
-
-    margin:15px;
+    height:55px;
 
     border:none;
 
     border-radius:50%;
 
-    background:#273144;
+    background:#2A3649;
 
     color:white;
 
-    font-size:40px;
+    font-size:30px;
 
     cursor:pointer;
 
-    transition:.25s;
+    transition:.2s;
 
 }
 
-.seta:hover{
+.botao:hover{
 
-    background:#46ff94;
+    background:#4CFF8E;
 
     color:#111;
 
 }
 
-/*=========================================
-RODAPÉ
-=========================================*/
+#paginaAtual{
 
-.rodape{
+    font-size:22px;
 
-    width:100%;
+    font-weight:bold;
 
-    text-align:center;
-
-    padding:18px;
-
-    color:#AAA;
-
-    font-size:17px;
-
-    border-top:2px solid #273144;
-
-    margin-top:20px;
+    color:white;
 
 }
 
-/*=========================================
+#ultimaAtualizacao{
+
+    font-size:18px;
+
+    color:#BBBBBB;
+
+}
+
+.total{
+
+    font-size:18px;
+
+    color:#BBBBBB;
+
+}
+
+.total span{
+
+    color:#52FF8D;
+
+    font-weight:bold;
+
+}
+
+/*==================================================
+ANIMAÇÃO
+==================================================*/
+
+.listaProdutos{
+
+    transition:opacity .4s;
+
+}
+
+/*==================================================
 SCROLLBAR
-=========================================*/
+==================================================*/
 
 ::-webkit-scrollbar{
 
@@ -487,13 +494,13 @@ SCROLLBAR
 
 ::-webkit-scrollbar-track{
 
-    background:#161d27;
+    background:#131B26;
 
 }
 
 ::-webkit-scrollbar-thumb{
 
-    background:#46546b;
+    background:#45556E;
 
     border-radius:20px;
 
@@ -501,67 +508,243 @@ SCROLLBAR
 
 ::-webkit-scrollbar-thumb:hover{
 
-    background:#5f7395;
+    background:#5E7498;
 
 }
 
-/*=========================================
-RESPONSIVO
-=========================================*/
+/*==================================================
+ANIMAÇÕES
+==================================================*/
 
-@media(max-width:1400px){
+@keyframes aparecer{
 
-    .grid{
+    from{
 
-        grid-template-columns:repeat(3,1fr);
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
 
     }
 
 }
 
-@media(max-width:1000px){
+.linhaProduto{
 
-    .grid{
+    animation:aparecer .35s ease;
 
-        grid-template-columns:repeat(2,1fr);
+}
+
+@keyframes destaque{
+
+    0%{
+
+        box-shadow:0 0 0 rgba(82,255,141,0);
+
+    }
+
+    50%{
+
+        box-shadow:0 0 20px rgba(82,255,141,.35);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 rgba(82,255,141,0);
+
+    }
+
+}
+
+.linhaProduto.alterado{
+
+    animation:destaque 1s ease;
+
+}
+
+/*==================================================
+TV FULL HD
+==================================================*/
+
+@media(min-width:1920px){
+
+    .logoImagem{
+
+        width:110px;
+
+        height:110px;
+
+    }
+
+    .logoTexto h1{
+
+        font-size:46px;
+
+    }
+
+    .logoTexto span{
+
+        font-size:22px;
+
+    }
+
+    #hora{
+
+        font-size:58px;
+
+    }
+
+    #data{
+
+        font-size:22px;
+
+    }
+
+    .cabecalho{
+
+        height:75px;
+
+        font-size:26px;
+
+    }
+
+    .linhaProduto{
+
+        height:84px;
+
+    }
+
+    .nomeProduto{
+
+        font-size:38px;
+
+    }
+
+    .tipoProduto{
+
+        font-size:26px;
+
+    }
+
+    .precoProduto .valor{
+
+        font-size:72px;
+
+    }
+
+    .precoProduto .rs{
+
+        font-size:30px;
+
+    }
+
+}
+
+/*==================================================
+NOTEBOOK
+==================================================*/
+
+@media(max-width:1366px){
+
+    .linhaProduto{
+
+        height:66px;
+
+    }
+
+    .nomeProduto{
+
+        font-size:28px;
+
+    }
+
+    .precoProduto .valor{
+
+        font-size:52px;
+
+    }
+
+}
+
+/*==================================================
+TABLET
+==================================================*/
+
+@media(max-width:1024px){
+
+    .cabecalho{
+
+        grid-template-columns:1fr 100px 170px;
+
+    }
+
+    .linhaProduto{
+
+        grid-template-columns:1fr 100px 170px;
+
+    }
+
+    .nomeProduto{
+
+        font-size:24px;
+
+    }
+
+    .tipoProduto{
+
+        font-size:18px;
+
+    }
+
+    .precoProduto .valor{
+
+        font-size:42px;
+
+    }
+
+    .precoProduto .rs{
+
+        font-size:20px;
+
+    }
+
+}
+
+/*==================================================
+CELULAR
+==================================================*/
+
+@media(max-width:768px){
+
+    body{
+
+        overflow:auto;
 
     }
 
     .topo{
-
-        padding:20px;
-
-    }
-
-}
-
-@media(max-width:700px){
-
-    .grid{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .conteudo{
-
-        flex-direction:column;
-
-    }
-
-    .topo{
-
-        flex-direction:column;
 
         height:auto;
 
         padding:20px;
+
+        flex-direction:column;
 
         gap:15px;
 
     }
 
     .logo{
+
+        flex-direction:column;
 
         text-align:center;
 
@@ -573,30 +756,124 @@ RESPONSIVO
 
     }
 
-    #hora{
+    .cabecalho{
 
-        font-size:34px;
+        display:none;
 
     }
 
-    .barraSuperior{
+    .linhaProduto{
+
+        display:flex;
 
         flex-direction:column;
 
+        align-items:center;
+
+        justify-content:center;
+
+        height:auto;
+
+        padding:18px;
+
+        gap:10px;
+
     }
 
-    #pesquisa{
+    .nomeProduto{
 
-        width:90%;
+        font-size:22px;
+
+        text-align:center;
+
+        white-space:normal;
+
+    }
+
+    .tipoProduto{
+
+        font-size:18px;
+
+    }
+
+    .precoProduto{
+
+        justify-content:center;
+
+    }
+
+    footer{
+
+        flex-wrap:wrap;
+
+        height:auto;
+
+        padding:15px;
+
+        gap:15px;
 
     }
 
 }
 
-footer {
-	background-color: #333;
-	color: #fff;
-	padding: 20px;
-	text-align: center;
-	margin-top: 50px;
+/*==================================================
+EFEITOS
+==================================================*/
+
+.botao:active{
+
+    transform:scale(.95);
+
+}
+
+.linhaProduto:hover{
+
+    transform:scale(1.005);
+
+}
+
+.precoProduto{
+
+    transition:.25s;
+
+}
+
+.linhaProduto:hover .precoProduto{
+
+    color:#6DFF9E;
+
+}
+
+/*==================================================
+UTILITÁRIOS
+==================================================*/
+
+.oculto{
+
+    display:none!important;
+
+}
+
+.centralizar{
+
+    text-align:center;
+
+}
+
+.verde{
+
+    color:#52FF8D;
+
+}
+
+.laranja{
+
+    color:#FF9800;
+
+}
+
+.vermelho{
+
+    color:#FF5252;
+
 }

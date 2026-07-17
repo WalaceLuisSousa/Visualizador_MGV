@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Painel de Preços - O Mercadinho</title>
+    <title>Visualizador MGV</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -19,67 +19,52 @@
 
 <body>
 
-    <!-- =====================================
-    TOPO
-    ====================================== -->
+    <!-- TOPO -->
 
     <header class="topo">
 
-        <div class="empresa">
+        <div class="logo">
 
             <img
                 src="imagens/logo_omercadinho.png"
-                class="logo"
+                class="logoImagem"
                 alt="Logo">
 
-            <div>
+            <div class="logoTexto">
 
                 <h1>O MERCADINHO</h1>
 
-                <span>Açougue • Padaria</span>
+                <span>Painel de Consulta de Preços</span>
 
             </div>
 
         </div>
 
-        <div class="informacoes">
+        <div class="relogio">
 
             <div id="data"></div>
 
             <div id="hora"></div>
 
-            <div class="total">
-
-                Produtos:
-                <span id="totalProdutos">0</span>
-
-            </div>
-
         </div>
 
     </header>
 
-
-    <!-- =====================================
-    OFERTA
-    ====================================== -->
+    <!-- OFERTAS -->
 
     <section class="barraOferta">
 
-        <div id="textoOferta">
+        <marquee id="textoOferta" behavior="scroll" direction="left">
 
-            🔥 OFERTAS DO DIA
+            Carregando ofertas...
 
-        </div>
+        </marquee>
 
     </section>
 
+    <!-- CABEÇALHO -->
 
-    <!-- =====================================
-    CABEÇALHO DA TABELA
-    ====================================== -->
-
-    <section class="cabecalhoTabela">
+    <section class="cabecalho">
 
         <div class="colProduto">
 
@@ -101,23 +86,21 @@
 
     </section>
 
+    <!-- PRODUTOS -->
 
-    <!-- =====================================
-    LISTA
-    ====================================== -->
+    <main>
 
-    <main
-        id="produtos"
-        class="listaProdutos">
+        <div
+            id="produtos"
+            class="listaProdutos">
+
+        </div>
 
     </main>
 
+    <!-- RODAPÉ -->
 
-    <!-- =====================================
-    RODAPÉ
-    ====================================== -->
-
-    <footer class="rodape">
+    <footer>
 
         <button
             id="anterior"
@@ -127,10 +110,15 @@
 
         </button>
 
-        <div
-            id="paginaAtual">
+        <div id="paginaAtual">
 
             Página 1
+
+        </div>
+
+        <div id="ultimaAtualizacao">
+
+            --
 
         </div>
 
@@ -141,6 +129,17 @@
             ▶
 
         </button>
+
+        <div class="total">
+
+            Produtos:
+            <span id="totalProdutos">
+
+                0
+
+            </span>
+
+        </div>
 
     </footer>
 
