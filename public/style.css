@@ -877,3 +877,62 @@ UTILITÁRIOS
     color:#FF5252;
 
 }
+
+/*====================================
+TELA DA LOGO
+====================================*/
+
+.telaLogo{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100vw;
+    height:100vh;
+
+    background:#ff6600;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+
+}
+
+.telaLogo img{
+
+    width:70%;
+
+    max-width:900px;
+
+    object-fit:contain;
+
+}
+
+.telaLogo.mostrar{
+
+    display:flex;
+
+    animation:fadeLogo .8s;
+
+}
+
+@keyframes fadeLogo{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}

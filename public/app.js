@@ -2,6 +2,8 @@
 // ELEMENTOS
 //==================================================
 
+const telaLogo = document.getElementById("telaLogo");
+
 const grid = document.getElementById("produtos");
 
 const textoOferta =
@@ -429,7 +431,9 @@ function iniciarPaginacaoAutomatica(){
 
         if(pagina>=totalPaginas){
 
-            pagina=0;
+            mostrarLogo();
+
+            return;
 
         }
 
@@ -652,3 +656,24 @@ console.log(
     "Visualizador MGV iniciado."
 
 );
+
+//==================================================
+// EXIBE LOGO
+//==================================================
+
+
+function mostrarLogo(){
+
+    telaLogo.classList.add("mostrar");
+
+    setTimeout(()=>{
+
+        telaLogo.classList.remove("mostrar");
+
+        pagina = 0;
+
+        mostrarPagina();
+
+    },5000); // tempo que a logo ficará na tela
+
+}
