@@ -4,64 +4,226 @@ const path = require("path");
 
 const app = express();
 
-const PORT = 80;
+const PORT = 3000;
 
-const arquivoMGV = path.join(__dirname, "dados", "ITENSMGV.txt");
+//==================================================
+// CAMINHO DO FRONTEND
+//==================================================
 
-app.use(express.static("public"));
+const pastaPublic = path.join(
+    __dirname,
+    "public"
+);
+
+//==================================================
+// CAMINHO FIXO DO ARQUIVO MGV
+//==================================================
+
+const arquivoMGV =
+    "C:\\Users\\walac\\OneDrive\\Desktop\\Visualizador MGV\\dados\\ITENSMGV.txt";
+
+//==================================================
+// FRONTEND
+//==================================================
+
+app.use(express.static(pastaPublic));
+
+//==================================================
+// API PRODUTOS
+//==================================================
 
 app.get("/api/produtos", (req, res) => {
 
-    fs.readFile(arquivoMGV, "latin1", (erro, texto) => {
+    console.log("================================");
+    console.log("Lendo arquivo MGV:");
+    console.log(arquivoMGV);
 
-        if (erro) {
+    // Verifica se o arquivo existe
+    if (!fs.existsSync(arquivoMGV)) {
 
-            return res.status(500).json({
-                erro: erro.message
-            });
+        console.error(
+            "ARQUIVO MGV NÃO ENCONTRADO!"
+        );
 
-        }
+        return res.status(500).json({
 
-        const linhas = texto
-            .replace(/\r/g, "")
-            .split("\n")
-            .filter(l => l.trim() !== "");
+            erro:
+                "Arquivo ITENSMGV.txt não encontrado.",
 
-        const produtos = [];
-
-        linhas.forEach(linha => {
-
-            produtos.push({
-
-                departamento: linha.substring(0,2),
-
-                tipoVenda: linha.substring(2,3),
-
-                ean: linha.substring(3,9),
-
-                preco: Number(linha.substring(9,15))/100,
-
-                validade: linha.substring(15,18),
-
-                descricao: linha.substring(18,43).trim(),
-
-                precoClube:
-                    Number(linha.substring(146,152))/100 || 0
-
-            });
+            caminho:
+                arquivoMGV
 
         });
 
-        res.json(produtos);
+    }
 
-    });
+    fs.readFile(
+        arquivoMGV,
+        "latin1",
+        (erro, texto) => {
+
+            if (erro) {
+
+                console.error(
+                    "Erro ao ler ITENSMGV:",
+                    erro
+                );
+
+                return res.status(500).json({
+
+                    erro: erro.message
+
+                });
+
+            }
+
+            // Remove CR e separa as linhas
+            const linhas = texto
+                .replace(/\r/g, "")
+                .split("\n")
+                .filter(
+                    linha =>
+                        linha.trim() !== ""
+                );
+
+            const produtos = [];
+
+            linhas.forEach(linha => {
+
+                // Ignora linhas inválidas
+                if (linha.length < 43) {
+
+                    return;
+
+                }
+
+                //==================================================
+                // CAMPOS MGV
+                //==================================================
+
+                const departamento =
+                    linha.substring(0, 2);
+
+                const tipoVenda =
+                    linha.substring(2, 3);
+
+                const ean =
+                    linha.substring(3, 9);
+
+                const preco =
+                    Number(
+                        linha.substring(9, 15)
+                    ) / 100;
+
+                const validade =
+                    linha.substring(15, 18);
+
+                const descricao =
+                    linha
+                        .substring(18, 43)
+                        .trim();
+
+                // Preço Clube
+                const precoClube =
+                    Number(
+                        linha.substring(146, 152)
+                    ) / 100;
+
+                //==================================================
+                // PRODUTO
+                //==================================================
+
+                produtos.push({
+
+                    departamento:
+                        departamento,
+
+                    tipoVenda:
+                        tipoVenda,
+
+                    ean:
+                        ean,
+
+                    preco:
+                        preco,
+
+                    validade:
+                        validade,
+
+                    descricao:
+                        descricao,
+
+                    precoClube:
+                        precoClube || 0
+
+                });
+
+            });
+
+            console.log(
+                "Produtos carregados:",
+                produtos.length
+            );
+
+            console.log("================================");
+
+            res.json(produtos);
+
+        }
+
+    );
 
 });
 
-app.listen(PORT,"0.0.0.0",()=>{
+//==================================================
+// SERVIDOR
+//==================================================
 
-    console.log("Servidor iniciado");
+app.listen(
+    PORT,
+    "0.0.0.0",
+    () => {
 
-    console.log("http://localhost:"+PORT);
+        console.log(
+            "================================"
+        );
 
-});
+        console.log(
+            "      VISUALIZADOR MGV"
+        );
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "Servidor iniciado"
+        );
+
+        console.log(
+            "Porta:",
+            PORT
+        );
+
+        console.log(
+            "Local:"
+        );
+
+        console.log(
+            "http://localhost:" + PORT
+        );
+
+        console.log(
+            "Arquivo MGV:"
+        );
+
+        console.log(
+            arquivoMGV
+        );
+
+        console.log(
+            "================================"
+        );
+
+    }
+);

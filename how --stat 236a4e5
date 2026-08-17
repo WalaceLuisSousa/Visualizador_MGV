@@ -1,0 +1,18 @@
+[33m1e13401[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Remove arquivos grandes do repositorio
+[33m236a4e5[m Finalização projeto
+[33m994fda5[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m adição da logo na tela inicial, e logo fullscreen apartir da rotação de produtos 1:2:3:logo:1:2:3
+[33m60ee4d5[m alteração completa no frontend, adição de paginação automatica
+[33mce13828[m alterações no index para melhoria de exibição
+[33mb8a3443[m readme teste
+[33m94be9a5[m adicionado o footer teste
+[33m4dddcb3[m adição da logo e imagem, alteração na class .topo/.logo
+[33m16cd6fc[m alteração de porta 3000 para 80
+[33m9bd75cf[m retirada da função de pesquisa da tela inicial, retirada do botão de importação manual
+[33m33ece9a[m alteração na estrutura, função de importação automatica
+[33me88f233[m npm init + install express
+[33m5e9684e[m alteração no Front e exclusão de informações sem uso da tela inicial
+[33ma561459[m tcriação do arquivo app.js para leitura do arquivos ItensMGV e inserção no Front
+[33m8512eb1[m criação do Front inicial
+[33m1669929[m nova estrutura/ informações de leitura
+[33m39831e2[m first commit
+[33m9976907[m Add initial HTML, JavaScript, and CSS files
